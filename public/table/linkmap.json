@@ -1,0 +1,16 @@
+{
+  "table_obj": {
+    "$": {"name": "table_obj"},
+    "visual": [
+      { "geometry": {"mesh": {"$": {"filename": "table.gltf"}}},
+	"origin": {"$": {
+	  "rpy": [
+            -1.5707963267948966,
+            0.0,
+            3.141592653589793
+          ],
+	  "xyz": [0, 0, 0]}}
+      }
+    ]
+  }
+}
