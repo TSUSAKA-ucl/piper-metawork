@@ -1,6 +1,6 @@
 {
   "name": "piper-metawork",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,9 +10,10 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@ucl-nuee/ik-cd-worker": "^1.0.7",
+    "@ucl-nuee/ik-cd-worker": "workspace:*",
     "@ucl-nuee/piper": "^1.2.1",
-    "@ucl-nuee/robot-loader": "^1.2.4",
+    "@ucl-nuee/robot-loader": "workspace:*",
+    "@ucl-nuee/metawork-aframe": "workspace:*",
     "aframe": "^1.8.0",
     "next": "16.2.10",
     "react": "19.2.4",

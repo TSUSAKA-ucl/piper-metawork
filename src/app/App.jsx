@@ -18,6 +18,7 @@ import '@ucl-nuee/robot-loader/ChangeOpacity.js';
 import '@ucl-nuee/robot-loader/fingerCloser.js';
 import '@ucl-nuee/robot-loader/ignoreCollision.js';
 import '@ucl-nuee/ik-cd-worker/IkWorkerParamsComponents.js';
+import '@ucl-nuee/metawork-aframe';
 
 function toSchema (obj, separator='; ') {
   if (typeof obj !== 'object' || obj === null) {
@@ -81,12 +82,18 @@ function App() {
                position="0.2 1 -1" rotation="-90 0 90"
                width="0.04" height="0.04" color="blue"
                robot-loader="model: piper"
-               ik-worker="0.20, 1.57, -0.79, 0, 0.79, 0"
+               ik-worker="-0.40, 1.57, -1.57, 0, 0.79, 0"
                reflect-collision="color: yellow"
                exact_solution="exact: false"
                reflect-joint-limits
-               set-joint-limit-keep-moving="true"
+               joint-limit-keep-moving-mask="mask: 0, 0, 0, 1, 1, 1"
                arm-motion-ui
+               metawork-publisher={"codeType: PiPER-control-LIU;"+
+                                   "topicExt: right/joint;"+
+                                   "model: PiPER-control-LIU;"+
+                                   /* "triggerStateComponent: arm-motion-ui;"+ */
+                                   /* "triggerStatePropertiy: triggerdownState;"+ */
+                                   "publishPerTick: 10"}
 	       >
       </a-plane>
       <a-plane id="left-piper"
@@ -97,7 +104,7 @@ function App() {
                reflect-collision="color: yellow"
                exact_solution="exact: false"
                reflect-joint-limits
-               set-joint-limit-keep-moving="true"
+               joint-limit-keep-moving-mask="mask: 0, 0, 0, 1, 1, 1"
                arm-motion-ui
 	       >
       </a-plane>
