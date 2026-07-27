@@ -93,7 +93,7 @@ function App() {
                                    "model: PiPER-control-LIU;"+
                                    /* "triggerStateComponent: arm-motion-ui;"+ */
                                    /* "triggerStatePropertiy: triggerdownState;"+ */
-                                   "publishPerTick: 10"}
+                                   "publishPerTick: 6"}
 	       >
       </a-plane>
       <a-plane id="left-piper"
@@ -106,6 +106,10 @@ function App() {
                reflect-joint-limits
                joint-limit-keep-moving-mask="mask: 0, 0, 0, 1, 1, 1"
                arm-motion-ui
+               metawork-publisher={"codeType: PiPER-control-LIU;"+
+                                   "topicExt: left/joint;"+
+                                   "model: PiPER-control-LIU;"+
+                                   "publishPerTick: 6"}
 	       >
       </a-plane>
       <a-entity id="table1"
