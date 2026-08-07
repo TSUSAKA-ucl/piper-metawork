@@ -18,6 +18,7 @@ import '@ucl-nuee/robot-loader/ChangeOpacity.js';
 import '@ucl-nuee/robot-loader/fingerCloser.js';
 import '@ucl-nuee/robot-loader/ignoreCollision.js';
 import '@ucl-nuee/ik-cd-worker/IkWorkerParamsComponents.js';
+import '@ucl-nuee/robot-loader/oneAxisMover.js';
 import '@ucl-nuee/metawork-aframe';
 
 function toSchema (obj, separator='; ') {
@@ -83,6 +84,7 @@ function App() {
                width="0.04" height="0.04" color="blue"
                robot-loader="model: piper"
                ik-worker="-0.40, 1.57, -1.57, 0, 0.79, 0"
+               /* joint-move-to="0, 2, -1, 1, 1, 0.5" */
                reflect-collision="color: yellow"
                exact_solution="exact: false"
                reflect-joint-limits
@@ -95,6 +97,25 @@ function App() {
                                    /* "triggerStatePropertiy: triggerdownState;"+ */
                                    "publishPerTick: 6"}
 	       >
+	<a-entity id="right-finger7"
+		  position="0 -0.005 0"
+		  robot-loader="model: piper-finger7"
+		  ik-worker=""
+                  attach-to-another="to: right-piper;event: a,b,x,y"
+		  one-axis-mover="axis: 0,-1,0; posiMax:0.035"
+                  metawork-publisher={"codeType: PiPER-control-LIU;"+
+                                      "topicExt: right/tool;"+
+                                      "model: PiPER-control-LIU;"+
+                                      "source: one-axis-mover;"+
+                                      "publishPerTick: 6"}
+		  />
+	<a-entity id="right-finger8"
+		  position="0 0.005 0"
+		  robot-loader="model: piper-finger8"
+		  ik-worker=""
+                  attach-to-another="to: right-piper;event: a,b,x,y"
+		  one-axis-mover="axis: 0,1,0; posiMax:0.035"
+		  />
       </a-plane>
       <a-plane id="left-piper"
                position="-0.2 1 -1" rotation="-90 0 90"
@@ -111,11 +132,33 @@ function App() {
                                    "model: PiPER-control-LIU;"+
                                    "publishPerTick: 6"}
 	       >
+	<a-entity id="left-finger7"
+		  robot-loader="model: piper-finger7"
+		  ik-worker=""
+                  attach-to-another="to: left-piper;event: a,b,x,y"
+	          one-axis-mover={"axis: 0,-1,0;"+
+                                  "posiMax:0.035;"+
+                                  "posiEvent:ybuttondown;"+
+                                  "posiStopEvent:ybuttonup;"+
+                                  "negaEvent:xbuttondown;"+
+                                  "negaStopEvent:xbuttonup"}
+	/>
+	<a-entity id="left-finger8"
+		  robot-loader="model: piper-finger8"
+		  ik-worker=""
+                  attach-to-another="to: left-piper;event: a,b,x,y"
+                  one-axis-mover={"axis: 0,1,0;"+
+                                  "posiMax:0.035;"+
+                                  "posiEvent:ybuttondown;"+
+                                  "posiStopEvent:ybuttonup;"+
+                                  "negaEvent:xbuttondown;"+
+                                  "negaStopEvent:xbuttonup"}
+	/>
       </a-plane>
       <a-entity id="table1"
                position="0.0 1 -0.8" rotation="-90 0 -90"
                still-objects="model: table"
-               ik-worker
+               ik-worker=""
                ignore-collision__r="other:right-piper; data: 0/0"
                ignore-collision__l="other:left-piper; data: 0/0"
       >
