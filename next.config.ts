@@ -7,6 +7,7 @@ const allowedDevOrigins = env_allowed_dev_origins ? env_allowed_dev_origins.spli
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactStrictMode: false,
 };
 module.exports = {
   allowedDevOrigins,

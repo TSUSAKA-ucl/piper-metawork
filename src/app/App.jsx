@@ -70,14 +70,12 @@ function App() {
                   visible="false">
           <a-entity a-axes-frame="length: 0.1" />
         </a-entity>
-        <a-entity left-controller
-                  laser-controls="hand: left"
-                  thumbstick-menu={menuSchemaL}
-                  target-selector="id: left-piper"
-                  event-distributor
-                  visible="false">
-          <a-entity a-axes-frame="length: 0.1" />
-        </a-entity>
+
+
+
+
+
+
       </a-entity>
       <a-plane id="right-piper"
                position="0.2 1 -1" rotation="-90 0 90"
@@ -102,20 +100,23 @@ function App() {
 		  robot-loader="model: piper-finger7"
 		  ik-worker=""
                   attach-to-another="to: right-piper;event: a,b,x,y"
+                  ignore-collision__a="other:right-piper; data: 0/6, 0/7"
 		  one-axis-mover="axis: 0,-1,0; posiMax:0.035"
                   metawork-publisher={"codeType: PiPER-control-LIU;"+
                                       "topicExt: right/tool;"+
                                       "model: PiPER-control-LIU;"+
                                       "source: one-axis-mover;"+
                                       "publishPerTick: 6"}
-		  />
+	/>
 	<a-entity id="right-finger8"
 		  position="0 0.005 0"
 		  robot-loader="model: piper-finger8"
 		  ik-worker=""
                   attach-to-another="to: right-piper;event: a,b,x,y"
+                  ignore-collision__a="other:right-piper; data: 0/6, 0/7"
+                  ignore-collision__b="other:right-finger7; data: 0/0, 0/1, 1/0, 1/1"
 		  one-axis-mover="axis: 0,1,0; posiMax:0.035"
-		  />
+	/>
       </a-plane>
       <a-plane id="left-piper"
                position="-0.2 1 -1" rotation="-90 0 90"
@@ -131,11 +132,12 @@ function App() {
                                    "topicExt: left/joint;"+
                                    "model: PiPER-control-LIU;"+
                                    "publishPerTick: 6"}
-	       >
+      >
 	<a-entity id="left-finger7"
 		  robot-loader="model: piper-finger7"
 		  ik-worker=""
                   attach-to-another="to: left-piper;event: a,b,x,y"
+                  ignore-collision__a="other:left-piper; data: 0/6, 0/7"
 	          one-axis-mover={"axis: 0,-1,0;"+
                                   "posiMax:0.035;"+
                                   "posiEvent:ybuttondown;"+
@@ -147,6 +149,7 @@ function App() {
 		  robot-loader="model: piper-finger8"
 		  ik-worker=""
                   attach-to-another="to: left-piper;event: a,b,x,y"
+                  ignore-collision__a="other:left-piper; data: 0/6, 0/7"
                   one-axis-mover={"axis: 0,1,0;"+
                                   "posiMax:0.035;"+
                                   "posiEvent:ybuttondown;"+
