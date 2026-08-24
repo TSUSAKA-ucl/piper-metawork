@@ -54,7 +54,7 @@ function App() {
                                 laser: false});
   return (
     <a-scene xr-mode-ui="XRMode: xr"
-      cd-worker-log-timing="timing: true"
+      cd-worker-log-timing="timing: false"
       cd-worker-log-collision="logCollision: true"
     >
       <a-entity camera position="-0.5 1.2 1.2"
@@ -66,6 +66,14 @@ function App() {
                   laser-controls="hand: right"
                   thumbstick-menu={menuSchemaR}
                   target-selector="id: right-piper"
+                  event-distributor
+                  visible="false">
+          <a-entity a-axes-frame="length: 0.1" />
+        </a-entity>
+        <a-entity left-controller
+                  laser-controls="hand: left"
+                  thumbstick-menu={menuSchemaL}
+                  target-selector="id: left-piper"
                   event-distributor
                   visible="false">
           <a-entity a-axes-frame="length: 0.1" />
@@ -150,6 +158,7 @@ function App() {
 		  ik-worker=""
                   attach-to-another="to: left-piper;event: a,b,x,y"
                   ignore-collision__a="other:left-piper; data: 0/6, 0/7"
+                  ignore-collision__b="other:left-finger7; data: 0/0, 0/1, 1/0, 1/1"
                   one-axis-mover={"axis: 0,1,0;"+
                                   "posiMax:0.035;"+
                                   "posiEvent:ybuttondown;"+
@@ -158,14 +167,14 @@ function App() {
                                   "negaStopEvent:xbuttonup"}
 	/>
       </a-plane>
-      <a-entity id="table1"
-               position="0.0 1 -0.8" rotation="-90 0 -90"
-               still-objects="model: table"
-               ik-worker=""
-               ignore-collision__r="other:right-piper; data: 0/0"
-               ignore-collision__l="other:left-piper; data: 0/0"
-      >
-      </a-entity>
+      {/* <a-entity id="table1" */}
+      {/*          position="0.0 1 -0.8" rotation="-90 0 -90" */}
+      {/*          still-objects="model: table" */}
+      {/*          ik-worker="" */}
+      {/*          ignore-collision__r="other:right-piper; data: 0/0" */}
+      {/*          ignore-collision__l="other:left-piper; data: 0/0" */}
+      {/* > */}
+      {/* </a-entity> */}
     </a-scene>
   );
 }
