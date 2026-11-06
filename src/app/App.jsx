@@ -1,25 +1,25 @@
 "use client";
 import * as React from 'react';
 import AFRAME from 'aframe';
-import '@ucl-nuee/robot-loader/robotRegistry.js';
-import '@ucl-nuee/robot-loader/robotLoader.js';
-import '@ucl-nuee/robot-loader/stillObjects.js';
+import '@ucl-nuee/ik-cd-worker/IkWorkerParamsComponents.js';
+import '@ucl-nuee/metawork-aframe';
+import '@ucl-nuee/robot-loader/armMotionUI.js';
+import '@ucl-nuee/robot-loader/attachToAnother.js';
+import '@ucl-nuee/robot-loader/axesFrame.js';
+import '@ucl-nuee/robot-loader/baseMover.js';
+import '@ucl-nuee/robot-loader/changeOpacity.js';
+import '@ucl-nuee/robot-loader/ignoreCollision.js';
 import '@ucl-nuee/robot-loader/ikWorker.js';
 import '@ucl-nuee/robot-loader/jointMoveTo.js';
-import '@ucl-nuee/robot-loader/reflectWorkerJoints.js';
-import '@ucl-nuee/robot-loader/reflectJointLimits.js';
-import '@ucl-nuee/robot-loader/reflectCollision.js';
-import '@ucl-nuee/robot-loader/armMotionUI.js';
-import '@ucl-nuee/robot-loader/vrControllerThumbMenu.js';
-import '@ucl-nuee/robot-loader/axesFrame.js';
-import '@ucl-nuee/robot-loader/attachToAnother.js';
-import '@ucl-nuee/robot-loader/baseMover.js';
-import '@ucl-nuee/robot-loader/ChangeOpacity.js';
-import '@ucl-nuee/robot-loader/fingerCloser.js';
-import '@ucl-nuee/robot-loader/ignoreCollision.js';
-import '@ucl-nuee/ik-cd-worker/IkWorkerParamsComponents.js';
+import '@ucl-nuee/robot-loader/multipleTogether.js';
 import '@ucl-nuee/robot-loader/oneAxisMover.js';
-import '@ucl-nuee/metawork-aframe';
+import '@ucl-nuee/robot-loader/reflectCollision.js';
+import '@ucl-nuee/robot-loader/reflectJointLimits.js';
+import '@ucl-nuee/robot-loader/reflectWorkerJoints.js';
+import '@ucl-nuee/robot-loader/robotLoader.js';
+import '@ucl-nuee/robot-loader/robotRegistry.js';
+import '@ucl-nuee/robot-loader/stillObjects.js';
+import '@ucl-nuee/robot-loader/vrControllerThumbMenu.js';
 
 function toSchema (obj, separator='; ') {
   if (typeof obj !== 'object' || obj === null) {
@@ -43,12 +43,12 @@ const cos15 = Math.cos(Math.PI/12);
 
 function App() {
   const menuSchemaR = toSchema({items: ['right-piper',
-                                        'right-piper',
+                                        'dual-controller',
                                         'left-piper',
                                         'ray'],
                                 laser: false});
   const menuSchemaL = toSchema({items: ['right-piper',
-                                        'left-piper',
+                                        'dual-controller',
                                         'left-piper',
                                         'ray'],
                                 laser: false});
@@ -78,15 +78,10 @@ function App() {
                   visible="false">
           <a-entity a-axes-frame="length: 0.1" />
         </a-entity>
-
-
-
-
-
-
       </a-entity>
+
       <a-plane id="right-piper"
-               position="0.2 1 -1" rotation="-90 0 90"
+               position="0.3 1 -1" rotation="-90 0 90"
                width="0.04" height="0.04" color="blue"
                robot-loader="model: piper"
                ik-worker="-0.40, 1.57, -1.57, 0, 0.79, 0"
@@ -127,10 +122,10 @@ function App() {
 	/>
       </a-plane>
       <a-plane id="left-piper"
-               position="-0.2 1 -1" rotation="-90 0 90"
+               position="-0.3 1 -1" rotation="-90 0 90"
                width="0.04" height="0.04" color="blue"
                robot-loader="model: piper"
-               ik-worker="-0.20, 1.57, -0.79, 0, 0.79, 0"
+               ik-worker="0, 0, 0,  0,0,0"
                reflect-collision="color: yellow"
                exact_solution="exact: false"
                reflect-joint-limits
@@ -152,6 +147,11 @@ function App() {
                                   "posiStopEvent:ybuttonup;"+
                                   "negaEvent:xbuttondown;"+
                                   "negaStopEvent:xbuttonup"}
+                  metawork-publisher={"codeType: PiPER-control-LIU;"+
+                                      "topicExt: left/tool;"+
+                                      "model: PiPER-control-LIU;"+
+                                      "source: one-axis-mover;"+
+                                      "publishPerTick: 6"}
 	/>
 	<a-entity id="left-finger8"
 		  robot-loader="model: piper-finger8"
@@ -167,6 +167,10 @@ function App() {
                                   "negaStopEvent:xbuttonup"}
 	/>
       </a-plane>
+      <a-entity id="dual-controller"
+		a-axes-frame="length: 0.15; radius: 0.010; color: red"
+		reserve-multiple-together="targets: right-piper, left-piper"
+		/>
       {/* <a-entity id="table1" */}
       {/*          position="0.0 1 -0.8" rotation="-90 0 -90" */}
       {/*          still-objects="model: table" */}
